@@ -1,6 +1,10 @@
 import type { ToolDefinition } from '@kessler/gemma-agent'
 
-export const TOOL_DEFINITIONS: Omit<ToolDefinition, 'execute'>[] = [
+export type ToolDefWithMedia = Omit<ToolDefinition, 'execute'> & {
+  mediaKeys?: Record<string, 'image' | 'audio'>
+}
+
+export const TOOL_DEFINITIONS: ToolDefWithMedia[] = [
   {
     name: 'read_page_content',
     description: 'Read the text or HTML content of the current page or a specific element',
@@ -22,6 +26,7 @@ export const TOOL_DEFINITIONS: Omit<ToolDefinition, 'execute'>[] = [
   {
     name: 'take_screenshot',
     description: 'Capture a screenshot of the currently visible page',
+    mediaKeys: { screenshot: 'image' },
   },
   {
     name: 'click_element',
